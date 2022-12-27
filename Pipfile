@@ -9,6 +9,7 @@ click = "*"
 progress = "*"
 pysondb = "*"
 pick = "*"
+pyinstaller = "*"
 
 [dev-packages]
 
