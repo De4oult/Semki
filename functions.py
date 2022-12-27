@@ -1,4 +1,4 @@
-from tools import current, unzip
+from tools import current, unzip, textify, reconfiguration, packagesList
 from datetime import datetime
 from pysondb import db
 
@@ -54,8 +54,16 @@ def download(name):
             saveTo = f'{str(workspace["packages_folder"])}/{str(name)}'
             urllib.request.urlretrieve('http://46.151.27.39/semki-packages/' + str(name) + '.zip', saveTo + '.zip')
             unzip(saveTo + '.zip', saveTo)
+            with open(current() + '/workspace.json', 'r+') as file:
+                workspace = json.loads(textify(file.readlines()))
 
-
+                if name in str(workspace):
+                    print('Package already installed!')
+                    return
+                
+                else:
+                    reconfiguration(workspace, name, file)
+                    return
 
 def build(name):
     pass
